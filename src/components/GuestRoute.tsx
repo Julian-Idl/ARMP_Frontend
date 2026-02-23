@@ -19,7 +19,7 @@ export default function GuestRoute() {
 
   if (isAuthenticated && user) {
     const redirectPath =
-      user.role === "APPROVER" ? "/approver/dashboard" : "/requester/dashboard";
+      user.role === "APPROVER" ? "/approver" : "/requester";
     return <Navigate to={redirectPath} replace />;
   }
 
