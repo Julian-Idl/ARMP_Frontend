@@ -36,9 +36,6 @@ export const registerSchema = z
         "Password must contain uppercase, lowercase, number, and special character"
       ),
     confirmPassword: z.string().min(1, "Please confirm your password"),
-    role: z.enum(["REQUESTER", "APPROVER"], {
-      message: "Please select a role",
-    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -67,7 +64,11 @@ export const rejectionSchema = z.object({
     .max(500, "Rejection reason must not exceed 500 characters"),
 });
 
+// Schema for approver creating another approver account (same fields as register)
+export const createApproverSchema = registerSchema;
+
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
+export type CreateApproverFormData = z.infer<typeof createApproverSchema>;
 export type AccessRequestFormData = z.infer<typeof accessRequestSchema>;
 export type RejectionFormData = z.infer<typeof rejectionSchema>;

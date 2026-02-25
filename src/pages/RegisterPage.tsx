@@ -34,7 +34,7 @@ export default function RegisterPage() {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { name: "", email: "", password: "", confirmPassword: "", role: "REQUESTER" },
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
   });
 
   const onSubmit = async (data: RegisterFormData) => {
@@ -44,7 +44,7 @@ export default function RegisterPage() {
         name: data.name,
         email: data.email,
         password: data.password,
-        role: data.role,
+        role: "REQUESTER",
       });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -98,23 +98,6 @@ export default function RegisterPage() {
               />
               {errors.email && (
                 <p className="text-sm text-destructive">{errors.email.message}</p>
-              )}
-            </div>
-
-            {/* Role */}
-            <div className="space-y-2">
-              <Label htmlFor="role">Role</Label>
-              <select
-                id="role"
-                {...register("role")}
-                disabled={isSubmitting}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <option value="REQUESTER">Requester</option>
-                <option value="APPROVER">Approver</option>
-              </select>
-              {errors.role && (
-                <p className="text-sm text-destructive">{errors.role.message}</p>
               )}
             </div>
 
